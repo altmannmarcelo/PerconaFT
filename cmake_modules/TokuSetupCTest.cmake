@@ -80,7 +80,12 @@ endif (USE_GCOV)
 ## construct BUILDNAME, seems to have to happen before include(CTest)
 set(BUILDNAME "${branchname} ${buildname_build_type} ${CMAKE_SYSTEM} ${machine_type} ${CMAKE_CXX_COMPILER_ID} ${real_cxx_compiler} ${CMAKE_CXX_COMPILER_VERSION}" CACHE STRING "CTest build name" FORCE)
 
-include(CTest)
+IF (NOT DEFINED BUILD_TESTING)
+  MESSAGE(STATUS "TokuDB - BUILD_TESTING has not been defined")
+  include(CTest)
+ELSE ()
+  MESSAGE(STATUS "TokuDB - BUILD_TESTING has been defined")
+ENDIF()
 
 set(TOKUDB_DATA "${TokuDB_SOURCE_DIR}/../tokudb.data" CACHE FILEPATH "Path to data files for tests")
 
